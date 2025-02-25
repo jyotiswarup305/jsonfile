@@ -1,0 +1,135 @@
+[
+        {
+            "id": 14620,
+            "name": "Acquia",
+            "uuid": "67fd1582-99e1-42a0-8f82-8997b4a856c6",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 8891,
+            "name": "Cards",
+            "uuid": "e12438da-f02a-4b47-887e-3c09cb1a0f18",
+            "parent_id": 1460,
+            "parent_uuid": "83f3a0de-f9e1-4c48-af7a-7da88f011114"
+        },
+        {
+            "id": 13667,
+            "name": "CCPA",
+            "uuid": "66d399a1-a2f7-4155-a7e6-7bc316768f9a",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 4639,
+            "name": "Channel Lineup",
+            "uuid": "08dad3fe-db22-4018-8777-76f08eca4403",
+            "parent_id": null,
+            "parent_uuid": "08dad3fe-db22-4018-8777-76f08eca4403"
+        },
+        {
+            "id": 10094,
+            "name": "ForBusiness",
+            "uuid": "ca371a78-b9d0-451a-9dfc-66152f55d6b8",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 3096,
+            "name": "Global",
+            "uuid": "26cc53fb-e870-4e97-98dd-9291919f53b8",
+            "parent_id": null,
+            "parent_uuid": "26cc53fb-e870-4e97-98dd-9291919f53b8"
+        },
+        {
+            "id": 10628,
+            "name": "inProgress",
+            "uuid": "3ce74f0a-320d-45c2-9475-89246d0ba4bc",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 1458,
+            "name": "Legal",
+            "uuid": "ca932a33-ef48-4699-83d0-ea6d330f96c8",
+            "parent_id": null,
+            "parent_uuid": "ca932a33-ef48-4699-83d0-ea6d330f96c8"
+        },
+        {
+            "id": 3892,
+            "name": "ReferenceComp",
+            "uuid": "454ce611-b7b7-4175-84b1-aabc148e421f",
+            "parent_id": null,
+            "parent_uuid": "454ce611-b7b7-4175-84b1-aabc148e421f"
+        },
+        {
+            "id": 1459,
+            "name": "Sales-Buy",
+            "uuid": "fa903c82-239c-42f3-a336-00446f9b4530",
+            "parent_id": null,
+            "parent_uuid": "fa903c82-239c-42f3-a336-00446f9b4530"
+        },
+        {
+            "id": 3519,
+            "name": "search",
+            "uuid": "5339eae7-75d4-4a52-9b75-4f40a5306f38",
+            "parent_id": null,
+            "parent_uuid": "5339eae7-75d4-4a52-9b75-4f40a5306f38"
+        },
+        {
+            "id": 5222,
+            "name": "Services",
+            "uuid": "e8ca4923-d212-4f3a-bb32-f6bfa25cff36",
+            "parent_id": null,
+            "parent_uuid": "e8ca4923-d212-4f3a-bb32-f6bfa25cff36"
+        },
+        {
+            "id": 6332,
+            "name": "Support",
+            "uuid": "419546d5-6d8f-4bc8-b724-fa97ba6b43bd",
+            "parent_id": null,
+            "parent_uuid": "419546d5-6d8f-4bc8-b724-fa97ba6b43bd"
+        },
+        {
+            "id": 9304,
+            "name": "TVGuide",
+            "uuid": "af73c993-2948-4c67-950f-d3137e3194d8",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 7642,
+            "name": "TVPromise",
+            "uuid": "f68c83bb-b443-4c0a-b221-5f7cc6e82b4d",
+            "parent_id": null,
+            "parent_uuid": null
+        },
+        {
+            "id": 1460,
+            "name": "UF",
+            "uuid": "83f3a0de-f9e1-4c48-af7a-7da88f011114",
+            "parent_id": null,
+            "parent_uuid": "83f3a0de-f9e1-4c48-af7a-7da88f011114"
+        },
+        {
+            "id": 2628,
+            "name": "UF-BitComp",
+            "uuid": "71cf9645-40dc-418b-80b7-1ec721b91f8e",
+            "parent_id": null,
+            "parent_uuid": "71cf9645-40dc-418b-80b7-1ec721b91f8e"
+        },
+        {
+            "id": 2660,
+            "name": "UF-NestedBitComp",
+            "uuid": "193e0dc4-b483-4e2d-a21a-033e82a8bc3e",
+            "parent_id": null,
+            "parent_uuid": "193e0dc4-b483-4e2d-a21a-033e82a8bc3e"
+        },
+        {
+            "id": 2813,
+            "name": "UF-NonBITComps",
+            "uuid": "9780f322-f543-4652-89e1-84e162d5c741",
+            "parent_id": null,
+            "parent_uuid": "9780f322-f543-4652-89e1-84e162d5c741"
+        }
+    ]
