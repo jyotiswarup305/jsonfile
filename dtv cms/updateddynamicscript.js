@@ -14,35 +14,53 @@ const sheet = workbook.Sheets[sheetName];
 const attributeUpdates = XLSX.utils.sheet_to_json(sheet)
   .filter(row => row.Component && row.Attribute);
 
-// ----- Function to Update a Component's Attribute Type -----
+// ----- Function to Update or Create a Component's Attribute Type -----
 async function updateComponentAttribute(components, componentName, attributeName) {
   const cleanComponent = componentName?.toString().trim();
   const cleanAttribute = attributeName?.toString().trim();
 
   if (!cleanComponent || !cleanAttribute) {
-    return { updated: false, reason: 'missing_fields' };
+    return { updated: false, created: false, reason: 'missing_fields' };
   }
 
   const component = components.find(comp => comp.name === cleanComponent);
   if (!component) {
-    return { updated: false, reason: 'missing_component' };
+    return { updated: false, created: false, reason: 'missing_component' };
   }
 
+  // If the attribute doesn't exist, we'll create it
   if (!component.schema?.[cleanAttribute]) {
-    return { updated: false, reason: 'missing_attribute' };
+    // Clone the component to avoid mutation
+    const updatedComponent = JSON.parse(JSON.stringify(component));
+    updatedComponent.schema = updatedComponent.schema || {};
+    updatedComponent.schema[cleanAttribute] = { type: 'textarea' };
+
+    try {
+      await axios.put(`${BASE_URL}/components/${component.id}`, updatedComponent, {
+        headers: {
+          'Authorization': API_TOKEN,
+          'Content-Type': 'application/json'
+        }
+      });
+      return { updated: false, created: true };
+    } catch (error) {
+      console.error(`Failed to create attribute '${cleanAttribute}' in component '${cleanComponent}': ${error.message}`);
+      return { updated: false, created: false, reason: 'api_error' };
+    }
   }
 
+  // Attribute exists: check its type.
   const attribute = component.schema[cleanAttribute];
-  
+
   if (attribute.type === 'textarea') {
-    return { updated: false, reason: 'existing_textarea' };
-  }
-  
-  if (attribute.type !== 'text') {
-    return { updated: false, reason: 'wrong_type' };
+    return { updated: false, created: false, reason: 'existing_textarea' };
   }
 
-  // Clone component to avoid mutating the original
+  if (attribute.type !== 'text') {
+    return { updated: false, created: false, reason: 'wrong_type' };
+  }
+
+  // Attribute exists and is of type text; update it to textarea.
   const updatedComponent = JSON.parse(JSON.stringify(component));
   updatedComponent.schema[cleanAttribute].type = 'textarea';
 
@@ -53,10 +71,10 @@ async function updateComponentAttribute(components, componentName, attributeName
         'Content-Type': 'application/json'
       }
     });
-    return { updated: true };
+    return { updated: true, created: false };
   } catch (error) {
-    console.error(`Failed to update ${cleanComponent}: ${error.message}`);
-    return { updated: false, reason: 'api_error' };
+    console.error(`Failed to update component '${cleanComponent}': ${error.message}`);
+    return { updated: false, created: false, reason: 'api_error' };
   }
 }
 
@@ -79,10 +97,10 @@ async function processUpdates() {
 
   const results = {
     updated: 0,
+    created: 0,
     skipped: {
       missing_fields: 0,
       missing_component: 0,
-      missing_attribute: 0,
       wrong_type: 0,
       existing_textarea: 0,
       api_error: 0
@@ -90,19 +108,27 @@ async function processUpdates() {
   };
 
   for (const [index, row] of attributeUpdates.entries()) {
-    console.log(`Processing row ${index + 1}/${attributeUpdates.length}`);
-    const result = await updateComponentAttribute(components, row.Component, row.Attribute);
+    const compName = row.Component;
+    const attrName = row.Attribute;
+    console.log(`Processing row ${index + 1}/${attributeUpdates.length}: Component '${compName}', Attribute '${attrName}'`);
+    
+    const result = await updateComponentAttribute(components, compName, attrName);
     
     if (result.updated) {
+      console.log(`✓ Updated: Component '${compName}'—attribute '${attrName}' set to textarea.`);
       results.updated++;
+    } else if (result.created) {
+      console.log(`✓ Created: Attribute '${attrName}' for component '${compName}' with type textarea.`);
+      results.created++;
     } else {
-      const reason = result.reason || 'unknown';
-      results.skipped[reason] = (results.skipped[reason] || 0) + 1;
+      console.log(`✗ Skipped: Component '${compName}'—${result.reason.replace(/_/g, ' ')}.`);
+      results.skipped[result.reason] = (results.skipped[result.reason] || 0) + 1;
     }
   }
 
   console.log('\nFinal Report:');
   console.log(`Successful updates: ${results.updated}`);
+  console.log(`Successful creations: ${results.created}`);
   Object.entries(results.skipped).forEach(([reason, count]) => {
     console.log(`- ${reason.replace(/_/g, ' ')}: ${count}`);
   });
