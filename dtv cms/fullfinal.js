@@ -8,7 +8,7 @@ const SPACE_ID = 1021485;
 const BASE_URL = `https://api-us.storyblok.com/v1/spaces/${SPACE_ID}`;
 
 // ----- Read Excel File -----
-const workbook = XLSX.readFile('attributes.xlsx');
+const workbook = XLSX.readFile('xyz.xlsx');
 const sheetName = workbook.SheetNames[0];
 const sheet = workbook.Sheets[sheetName];
 const attributeUpdates = XLSX.utils.sheet_to_json(sheet)
